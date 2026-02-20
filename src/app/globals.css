@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Deep Navy & Gold Theme */
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    
+    --primary: 222 47% 11%; /* Deep Navy #0F172A */
+    --primary-foreground: 210 40% 98%;
+    
+    --secondary: 210 40% 96%; /* Light Gray #F1F5F9 */
+    --secondary-foreground: 222 47% 11%;
+    
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    
+    --accent: 42 48% 57%; /* Gold #C6A75E */
+    --accent-foreground: 222 47% 11%;
+    
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 42 48% 57%;
+    
+    --radius: 0.75rem;
+
+    /* Sidebar Refined */
+    --sidebar-background: 222 47% 11%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 42 48% 57%;
+    --sidebar-primary-foreground: 222 47% 11%;
+    --sidebar-accent: 222 47% 15%;
+    --sidebar-accent-foreground: 42 48% 57%;
+    --sidebar-border: 222 47% 15%;
+    --sidebar-ring: 42 48% 57%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-pt-sans), sans-serif;
+  }
+}
+
+@layer utilities {
+  /* Utility to hide scrollbar while maintaining scroll functionality */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none !important;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none !important;  /* IE and Edge */
+    scrollbar-width: none !important;  /* Firefox */
+  }
+}
+
+.premium-navy-gradient {
+  background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+}
+
+.gold-glow {
+  box-shadow: 0 0 20px rgba(198, 167, 94, 0.2);
+}
+
+.formal-text {
+  letter-spacing: 0.01em;
+  line-height: 1.6;
+}

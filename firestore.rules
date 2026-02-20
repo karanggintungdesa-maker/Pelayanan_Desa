@@ -1,0 +1,55 @@
+/**
+ * # Firestore Security Rules for Karanggintung Digital
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Publicly readable collections for visual elements
+    match /villageLogo/{logoId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+    match /kopSurat/{settingId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+    
+    // Announcements are public for residents to read
+    match /announcements/{announcementId} {
+      allow read: if true;
+      allow write: if isSignedIn();
+    }
+
+    // Citizens collection for contact profiles
+    match /citizens/{uid} {
+      allow read, write: if isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Special, public rule for the counters collection for Genkit flow.
+    match /counters/{counterId} {
+      allow read, write: if true;
+    }
+
+    // Specific rules for letter submissions
+    match /letterRequests/{requestId} {
+      // Allow creation if the user is signed in and is the owner of the request.
+      allow create: if isSignedIn() && request.resource.data.requestorAuthUid == request.auth.uid;
+
+      // Allow updates if the user is signed in.
+      allow update: if isSignedIn();
+      
+      // Allow signed-in users (anonymous users and admin) to read and delete.
+      allow read, delete: if isSignedIn();
+    }
+
+    // For all other documents not specifically matched above, the user must be signed in.
+    match /{document=**} {
+      allow read, write: if isSignedIn();
+    }
+  }
+}

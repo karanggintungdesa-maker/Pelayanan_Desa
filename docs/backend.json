@@ -1,0 +1,698 @@
+{
+  "entities": {
+    "Counter": {
+      "title": "Counter",
+      "description": "A generic counter document for sequential numbering.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number",
+          "description": "The current value of the counter."
+        }
+      },
+      "required": ["value"]
+    },
+    "KopSurat": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "KopSurat",
+      "type": "object",
+      "description": "Stores the configuration for the official letterhead (Kop Surat), which is a single image.",
+      "properties": {
+        "letterheadImageUrl": {
+          "type": "string",
+          "description": "The public URL of the complete letterhead image stored in Firebase Storage.",
+          "format": "uri"
+        }
+      },
+      "required": ["letterheadImageUrl"]
+    },
+    "VillageLogo": {
+      "title": "VillageLogo",
+      "type": "object",
+      "description": "Stores the configuration for the village logo.",
+      "properties": {
+        "logoImageUrl": {
+          "type": "string",
+          "description": "The base64 data URI of the village logo image."
+        }
+      },
+      "required": ["logoImageUrl"]
+    },
+    "Resident": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Resident",
+      "type": "object",
+      "description": "Represents a single resident of Karanggintung village, containing personal and demographic information managed by village administrators.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Resident entity."
+        },
+        "nik": {
+          "type": "string",
+          "description": "National Identity Number (Nomor Induk Kependudukan) of the resident. This is a unique identifier issued by the government."
+        },
+        "fullName": {
+          "type": "string",
+          "description": "The full legal name of the resident."
+        },
+        "placeOfBirth": {
+          "type": "string",
+          "description": "The city or region where the resident was born."
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "description": "The date of birth of the resident.",
+          "format": "date"
+        },
+        "gender": {
+          "type": "string",
+          "description": "The gender of the resident (e.g., 'Laki-laki' for Male, 'Perempuan' for Female)."
+        },
+        "bloodType": {
+          "type": "string",
+          "description": "The blood type of the resident (e.g., 'A', 'B', 'AB', 'O')."
+        },
+        "address": {
+          "type": "string",
+          "description": "The complete street address of the resident."
+        },
+        "rtRw": {
+          "type": "string",
+          "description": "The RT (Rukun Tetangga) and RW (Rukun Warga) number of the resident's address (e.g., '001/002')."
+        },
+        "religion": {
+          "type": "string",
+          "description": "The religious affiliation of the resident."
+        },
+        "occupation": {
+          "type": "string",
+          "description": "The current occupation or profession of the resident."
+        },
+        "maritalStatus": {
+          "type": "string",
+          "description": "The marital status of the resident (e.g., 'Belum Kawin', 'Kawin', 'Cerai Hidup', 'Cerai Mati')."
+        },
+        "citizenship": {
+          "type": "string",
+          "description": "The citizenship of the resident (e.g., 'WNI' for Indonesian Citizen)."
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Contact phone number of the resident."
+        },
+        "email": {
+          "type": "string",
+          "description": "Contact email address of the resident.",
+          "format": "email"
+        },
+        "educationLevel": {
+          "type": "string",
+          "description": "The highest education level attained by the resident."
+        },
+        "familyCardId": {
+          "type": "string",
+          "description": "Reference to the FamilyCard entity this resident belongs to. (Relationship: FamilyCard 1:N Resident)"
+        },
+        "relationshipToHeadOfFamily": {
+          "type": "string",
+          "description": "The relationship of the resident to the head of the family (e.g., 'Kepala Keluarga', 'Istri', 'Anak')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the resident record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the resident record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "nik",
+        "fullName",
+        "placeOfBirth",
+        "dateOfBirth",
+        "gender",
+        "address",
+        "rtRw",
+        "religion",
+        "occupation",
+        "maritalStatus",
+        "citizenship",
+        "familyCardId",
+        "relationshipToHeadOfFamily",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "FamilyCard": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "FamilyCard",
+      "type": "object",
+      "description": "Represents a Family Card (Kartu Keluarga), which groups residents belonging to the same family unit and is managed by village administrators.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the FamilyCard entity."
+        },
+        "familyCardNumber": {
+          "type": "string",
+          "description": "The unique number assigned to the Family Card (Nomor Kartu Keluarga)."
+        },
+        "headOfFamilyId": {
+          "type": "string",
+          "description": "Reference to the Resident entity who is designated as the head of this family. (Relationship: Resident 1:N FamilyCard - where one Resident is the head of one FamilyCard)"
+        },
+        "address": {
+          "type": "string",
+          "description": "The primary street address registered for this family card."
+        },
+        "rtRw": {
+          "type": "string",
+          "description": "The RT (Rukun Tetangga) and RW (Rukun Warga) number for this family card's address."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code for the family card's address."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the family card record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the family card record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "familyCardNumber",
+        "headOfFamilyId",
+        "address",
+        "rtRw",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LetterType": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "LetterType",
+      "type": "object",
+      "description": "Defines the different types of official letters that residents can request, including their templates and required information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the LetterType entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The official name of the letter type (e.g., 'Surat Keterangan Domisili', 'Surat Pengantar Nikah')."
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of what this letter type is for."
+        },
+        "templateContent": {
+          "type": "string",
+          "description": "The template content for generating the letter, which can include placeholders for dynamic data. (e.g., Markdown, HTML, or plain text with variables)"
+        },
+        "requiredInformationFields": {
+          "type": "array",
+          "description": "A list of keys (strings) representing the specific data fields required from the resident to generate this letter (e.g., 'purpose', 'destinationAddress', 'eventDate').",
+          "items": {
+            "type": "string"
+          }
+        },
+        "administrativeFee": {
+          "type": "number",
+          "description": "The administrative fee required for requesting this type of letter, if any."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the letter type record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the letter type record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "templateContent",
+        "requiredInformationFields",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "LetterRequest": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "LetterRequest",
+      "type": "object",
+      "description": "Records a resident's request for an official letter, tracking its status and associated data.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the LetterRequest entity."
+        },
+        "residentId": {
+          "type": "string",
+          "description": "Reference to the Resident who submitted this letter request. (Relationship: Resident 1:N LetterRequest)"
+        },
+        "letterTypeId": {
+          "type": "string",
+          "description": "Reference to the LetterType being requested. (Relationship: LetterType 1:N LetterRequest)"
+        },
+        "requestDate": {
+          "type": "string",
+          "description": "The date and time when the letter request was submitted.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the letter request (e.g., 'Submitted', 'Under Review', 'Approved', 'Rejected', 'Generated', 'Ready for Pickup', 'Completed')."
+        },
+        "submissionData": {
+          "type": "string",
+          "description": "A JSON string containing the specific data provided by the resident for this particular letter request (e.g., purpose, destination, dates)."
+        },
+        "adminNotes": {
+          "type": "string",
+          "description": "Internal notes added by village administrators regarding the request."
+        },
+        "rejectionReason": {
+          "type": "string",
+          "description": "Reason provided if the letter request was rejected."
+        },
+        "generatedDocumentUrl": {
+          "type": "string",
+          "description": "URL or path to the final generated document (e.g., PDF) once it's ready.",
+          "format": "uri"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the letter request record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the letter request record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "residentId",
+        "letterTypeId",
+        "requestDate",
+        "status",
+        "submissionData",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Complaint": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Complaint",
+      "type": "object",
+      "description": "Records a complaint or feedback submitted by a resident to the village administration.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Complaint entity."
+        },
+        "residentId": {
+          "type": "string",
+          "description": "Reference to the Resident who submitted the complaint. Can be null if anonymous submission is allowed. (Relationship: Resident 1:N Complaint)"
+        },
+        "subject": {
+          "type": "string",
+          "description": "A brief subject line for the complaint or feedback."
+        },
+        "description": {
+          "type": "string",
+          "description": "The full text content of the complaint or feedback submitted by the resident."
+        },
+        "submissionDate": {
+          "type": "string",
+          "description": "The date and time when the complaint was submitted.",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the complaint (e.g., 'New', 'In Progress', 'Resolved', 'Closed', 'Escalated')."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the complaint (e.g., 'Infrastructure', 'Public Service', 'Environment', 'Security')."
+        },
+        "summaryLLM": {
+          "type": "string",
+          "description": "An AI-generated summary of the complaint or feedback."
+        },
+        "adminResponse": {
+          "type": "string",
+          "description": "The official response or action taken by the village administration regarding the complaint."
+        },
+        "resolvedDate": {
+          "type": "string",
+          "description": "The date when the complaint was resolved, if applicable.",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the complaint record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the complaint record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "submissionDate",
+        "status",
+        "category",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Announcement": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Announcement",
+      "type": "object",
+      "description": "Represents an important announcement or notification broadcasted by the village administration to residents.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Announcement entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "The title of the announcement."
+        },
+        "content": {
+          "type": "string",
+          "description": "The full content of the announcement."
+        },
+        "publishDate": {
+          "type": "string",
+          "description": "The date and time when the announcement was published.",
+          "format": "date-time"
+        },
+        "expiryDate": {
+          "type": "string",
+          "description": "The date and time when the announcement should no longer be prominently displayed (optional).",
+          "format": "date-time"
+        },
+        "authorName": {
+          "type": "string",
+          "description": "The name or role of the person/department who authored the announcement (e.g., 'Kepala Desa', 'Sekretaris Desa')."
+        },
+        "targetAudience": {
+          "type": "string",
+          "description": "Specifies the intended audience for the announcement (e.g., 'All Residents', 'Youth', 'Administrators')."
+        },
+        "isUrgent": {
+          "type": "boolean",
+          "description": "Indicates if the announcement is urgent and requires immediate attention."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the announcement record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the announcement record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "content",
+        "publishDate",
+        "authorName",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "VillageStatistic": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "VillageStatistic",
+      "type": "object",
+      "description": "Stores key demographic and administrative statistics of Karanggintung village, used for dashboards and reports.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the VillageStatistic entity."
+        },
+        "statisticName": {
+          "type": "string",
+          "description": "The name of the statistic (e.g., 'Total Population', 'Area', 'Number of Families')."
+        },
+        "statisticValue": {
+          "type": "number",
+          "description": "The numerical value of the statistic."
+        },
+        "unit": {
+          "type": "string",
+          "description": "The unit of measurement for the statistic value (e.g., 'people', 'hectares', 'families')."
+        },
+        "recordedDate": {
+          "type": "string",
+          "description": "The date when this statistic was last recorded or updated.",
+          "format": "date"
+        },
+        "description": {
+          "type": "string",
+          "description": "A brief description of what this statistic represents."
+        },
+        "category": {
+          "type": "string",
+          "description": "A category for the statistic (e.g., 'Demographics', 'Geography', 'Economy')."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the statistic record was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the statistic record was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "statisticName",
+        "statisticValue",
+        "unit",
+        "recordedDate",
+        "description",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous",
+      "google.com"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/counters/{counterId}",
+        "definition": {
+          "entityName": "Counter",
+          "schema": {
+            "$ref": "#/backend/entities/Counter"
+          },
+          "description": "Stores singleton counter documents. For example, a document with ID 'letterNumber' can store the last used letter number.",
+          "params": [
+            {
+              "name": "counterId",
+              "description": "The unique identifier for the counter (e.g., 'letterNumber')."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/kopSurat/{settingId}",
+        "definition": {
+          "entityName": "KopSurat",
+          "schema": {
+            "$ref": "#/backend/entities/KopSurat"
+          },
+          "description": "Singleton collection to store the letterhead (Kop Surat) configuration. Should contain a single document, typically with the ID 'default'. Publicly readable for printing, admin-writable for settings.",
+          "params": [
+            {
+              "name": "settingId",
+              "description": "The unique identifier for the settings document (e.g., 'default')."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/villageLogo/{logoId}",
+        "definition": {
+          "entityName": "VillageLogo",
+          "schema": {
+            "$ref": "#/backend/entities/VillageLogo"
+          },
+          "description": "Singleton collection to store the village logo. Should contain a single document, typically with the ID 'default'. Publicly readable, admin-writable.",
+          "params": [
+            {
+              "name": "logoId",
+              "description": "The unique identifier for the logo document (e.g., 'default')."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/adminRoles/{userId}",
+        "definition": {
+          "entityName": "adminRole",
+          "schema": {
+            "$ref": "#/backend/entities/adminRole"
+          },
+          "description": "Collection storing administrator roles. The document ID is the Firebase Auth UID of an administrator. Its existence grants administrative privileges. This uses an 'existence over content' model for DBAC (Database Access Control).",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The Firebase Authentication UID of the administrator."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/residents/{residentId}",
+        "definition": {
+          "entityName": "Resident",
+          "schema": {
+            "$ref": "#/backend/entities/Resident"
+          },
+          "description": "Collection for all village resident data, managed by administrators. Each resident document includes an optional 'linkedAuthUid' field (Firebase Auth UID) for direct access by the individual resident to their own profile, enabling Authorization Independence.",
+          "params": [
+            {
+              "name": "residentId",
+              "description": "The unique identifier for the resident record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/familyCards/{familyCardId}",
+        "definition": {
+          "entityName": "FamilyCard",
+          "schema": {
+            "$ref": "#/backend/entities/FamilyCard"
+          },
+          "description": "Collection for family card records, managed by administrators. Each family card document includes an optional 'headOfFamilyAuthUid' field (Firebase Auth UID of the head of family) for direct access by the head of family, enabling Authorization Independence.",
+          "params": [
+            {
+              "name": "familyCardId",
+              "description": "The unique identifier for the family card record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/letterTypes/{letterTypeId}",
+        "definition": {
+          "entityName": "LetterType",
+          "schema": {
+            "$ref": "#/backend/entities/LetterType"
+          },
+          "description": "Collection for all types of official letter templates. This collection is publicly readable by residents to browse available letter types and their requirements, and is managed (created/updated) by administrators.",
+          "params": [
+            {
+              "name": "letterTypeId",
+              "description": "The unique identifier for a specific letter type."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/letterRequests/{letterRequestId}",
+        "definition": {
+          "entityName": "LetterRequest",
+          "schema": {
+            "$ref": "#/backend/entities/LetterRequest"
+          },
+          "description": "Collection for resident letter requests. Residents can create and manage their own requests. Administrators have full access. Each document includes 'requestorAuthUid' (Firebase Auth UID) for direct authorization and efficient querying (QAPs) by the submitting resident.",
+          "params": [
+            {
+              "name": "letterRequestId",
+              "description": "The unique identifier for a specific letter request."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/complaints/{complaintId}",
+        "definition": {
+          "entityName": "Complaint",
+          "schema": {
+            "$ref": "#/backend/entities/Complaint"
+          },
+          "description": "Collection for resident complaints and feedback. Residents can submit their own (anonymously or linked to their account) and manage them. Administrators have full access. Each document includes an optional 'submitterAuthUid' (Firebase Auth UID) for direct authorization and efficient querying (QAPs) by the submitting resident.",
+          "params": [
+            {
+              "name": "complaintId",
+              "description": "The unique identifier for a specific complaint."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/announcements/{announcementId}",
+        "definition": {
+          "entityName": "Announcement",
+          "schema": {
+            "$ref": "#/backend/entities/Announcement"
+          },
+          "description": "Collection for public announcements from the village administration. This collection is publicly readable by all residents and managed (created/updated) by administrators.",
+          "params": [
+            {
+              "name": "announcementId",
+              "description": "The unique identifier for a specific announcement."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/villageStatistics/{statisticId}",
+        "definition": {
+          "entityName": "VillageStatistic",
+          "schema": {
+            "$ref": "#/backend/entities/VillageStatistic"
+          },
+          "description": "Collection for key village statistics. This collection is publicly readable for display on dashboards and managed (created/updated) by administrators.",
+          "params": [
+            {
+              "name": "statisticId",
+              "description": "The unique identifier for a specific village statistic."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The proposed Firestore structure for 'Karanggintung Digital' prioritizes secure, scalable, and debuggable access, adhering to all core design principles and mandates. \n\n**Authorization Independence and Denormalization:**\nTo achieve Authorization Independence, we avoid the use of `get()` operations in security rules for authorization checks. Instead, critical authorization context is denormalized directly into the relevant documents:\n\n1.  **Residents (`/residents/{residentId}`):** Each `Resident` document includes an optional `linkedAuthUid` field. If present, this field stores the Firebase Authentication UID of the resident, allowing them to directly access and manage their own profile without needing to query a separate user collection or their `FamilyCard`.\n2.  **Family Cards (`/familyCards/{familyCardId}`):** Each `FamilyCard` document includes an optional `headOfFamilyAuthUid` field, denormalized from the `Resident` who is the head of the family. This allows the head of the family to directly access their family card information.\n3.  **Letter Requests (`/letterRequests/{letterRequestId}`):** Each `LetterRequest` document includes a `requestorAuthUid` field, storing the Firebase Authentication UID of the resident who submitted the request. This enables direct, self-service access for residents to view and manage their own requests.\n4.  **Complaints (`/complaints/{complaintId}`):** Each `Complaint` document includes an optional `submitterAuthUid` field. For logged-in residents, this field stores their Firebase Authentication UID, allowing them to manage their submitted complaints. For anonymous complaints, this field would be null.\n\nThis denormalization strategy ensures that security rules can evaluate access requests atomically based solely on the data within the requested document and the `request.auth.uid`, making rules simpler, more robust, and easier to debug. It also supports atomic batch writes/transactions as there are no cross-document `get()` dependencies for authorization.\n\n**QAPs (Queryable Authorization Patterns):**\nThis structure strongly supports Queryable Authorization Patterns (QAPs):\n\n*   **Public Data:** Collections like `/announcements`, `/villageStatistics`, and `/letterTypes` are structured for public read access. Residents can easily `list` and `get` this information without any filtering by UID.\n*   **User-Specific Data:** For `LetterRequest` and `Complaint` entities, residents can efficiently query for *their own* data using `where('requestorAuthUid', '==', request.auth.uid)` or `where('submitterAuthUid', '==', request.auth.uid)`. This ensures that `list` operations are securely filtered by the database and not reliant on client-side filtering or slow rule-based filtering.\n*   **Admin Access:** A dedicated `/adminRoles/{userId}` collection uses the 'existence over content' model. Checking `exists(/databases/$(database)/documents/adminRoles/$(request.auth.uid))` in rules grants administrators broad access to manage all data, enabling them to `list` all documents in any administrative collection.\n\n**Structural Segregation:**\nAll documents within a given collection share a homogeneous security posture. For example, all documents in `/letterTypes` are publicly readable (by residents) and writable by administrators. This simplifies security rules immensely as there are no mixed access requirements within a single collection.\n\nRegarding the user's question, \"apa perlu saya buat database untuk tamplate masing-masing surat?\" (Do I need to create a database for each letter template?), the answer is **no**. The `LetterType` entity, stored in the `/letterTypes` collection, is designed to hold the `templateContent` for *all* different letter types. This approach centralizes template management, allowing administrators to define and update various letter templates efficiently within a single, well-defined collection without needing separate 'databases' or collections for each template type."
+  }
+}
