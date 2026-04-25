@@ -1,3 +1,25 @@
+import "./globals.css";
+
+export const metadata = {
+  title: "Pelayanan Desa Karanggintung",
+  description: "Aplikasi Pelayanan Publik Desa Karanggintung",
+  icons: {
+    icon: "/favicon.ico",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="id">
+      <body>{children}</body>
+    </html>
+  );
+}
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster"
