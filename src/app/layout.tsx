@@ -1,14 +1,6 @@
-export const metadata = {
-  title: "Pelayanan Desa Karanggintung",
-  description: "Aplikasi Pelayanan Publik Desa Karanggintung",
-  icons: {
-    icon: "/favicon.ico?v=2",
-  },
-};
-
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import './globals.css';
-import { Toaster } from "@/components/ui/toaster"
+import { Toaster } from "@/components/ui/toaster";
 import { FirebaseClientProvider } from '@/firebase';
 import { FaviconManager } from '@/components/favicon-manager';
 import { Plus_Jakarta_Sans, Montserrat } from 'next/font/google';
@@ -27,15 +19,18 @@ const display = Montserrat({
 });
 
 export const metadata: Metadata = {
-  title: 'PELAYANAN DESA KARANGGINTUNG',
+  title: 'Pelayanan Desa Karanggintung',
   description: 'Aplikasi Pelayanan Publik Desa Karanggintung',
+  icons: {
+    icon: '/favicon.ico?v=2',
+  },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="id" suppressHydrationWarning>
       <body className={`${sans.variable} ${display.variable} font-sans antialiased`}>
