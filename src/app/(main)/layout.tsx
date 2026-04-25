@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarInset,
+  SidebarTrigger,
 } from '@/components/ui/sidebar';
 import { Logo } from '@/components/logo';
 import {
@@ -25,7 +26,7 @@ import {
   Mail,
   Facebook,
   Instagram,
-  Home
+  Home,
 } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
@@ -48,7 +49,6 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
 
   useEffect(() => {
     const checkProfile = async () => {
-      // Cek apakah user adalah admin
       if (user?.email === 'karanggintungdesa@gmail.com') {
         setIsVerifying(false);
         return;
@@ -151,6 +151,10 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
         </SidebarFooter>
       </Sidebar>
       <SidebarInset className="bg-slate-50 flex flex-col min-h-screen">
+        <header className="md:hidden flex items-center justify-between p-4 border-b bg-white z-10 sticky top-0">
+          <Logo />
+          <SidebarTrigger />
+        </header>
         <main className="max-w-[1400px] mx-auto w-full p-6 md:p-12 flex-1">
           {children}
         </main>
